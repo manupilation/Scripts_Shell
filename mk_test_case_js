@@ -1,0 +1,58 @@
+#!/usr/bin/env zsh
+
+# --------------------------------------
+# mk_test_case_js
+# --------------------------------------
+
+# Script   : Make test case Javascript
+# Descrição: Usado para buildar tests
+#	     cases de forma rápida
+# Versão   : 1.0
+# Autor    : <manupilation - Github>
+# Data     : 30/08/2023
+# Licença  : GNU/GPL v.3.0
+
+# --------------------------------------
+# Uso      : $ mk_test_case_js test_name.extension
+# --------------------------------------
+
+# Variables
+
+body="describe('', () => {
+  test('', () => {
+
+  });
+});
+"
+
+# =================== Tests ====================
+
+# Tests if command has one param
+
+if [[ $# -ne 1 ]]; then
+  echo "Invalid. Use one argument"
+  exit 1
+fi
+
+# Tests if file exists
+
+if [[ -f "$1" ]]; then
+  echo "This file already exists."
+  exit 1
+fi
+
+# Tests if file uses .test.extension correctly
+
+if [[ ! "$1" =~ \.(test|spec)\.(js|ts|jsx|tsx)$ ]]; then
+  echo "Use a valid extension"
+  exit 1
+fi
+
+# Code
+
+echo "$body" > "$1"
+
+chmod 733 "$1"
+
+exit 0
+
