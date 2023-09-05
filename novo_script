@@ -1,0 +1,47 @@
+#!/usr/bin/env zsh
+
+# Opções:
+
+editor="nano"
+
+# Variables
+
+dia_de_hoje=$( date +'%d/%m/%Y'  )
+
+header="#!/usr/bin/env zsh
+
+# ------------------------------------
+# $1
+# ------------------------------------
+
+# Script   : $1
+# Descrição:
+# Versão   : 1.0
+# Autor    : <manupilation github>
+# Data     : $dia_de_hoje
+# Licença  : GNU/GPL v.3.0
+
+# -------------------------------------
+# Uso      :
+# -------------------------------------
+"
+
+# Testa se o user passou o nome do novo script
+
+[[ $# -ne 1 ]] && echo "Informe um nome pro arquivo." && exit 1
+
+# Testa se o arquivo já existe
+
+[[ -f $1  ]] && echo "Este arquivo já existe!!!" && exit 2
+
+
+# Code
+
+echo "$header" > $1
+
+chmod 733 $1
+
+$editor $1
+
+exit 0
+
